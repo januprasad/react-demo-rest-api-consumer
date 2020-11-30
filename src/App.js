@@ -1,41 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import List from './components/List';
-import withListLoading from './components/withListLoading';
-function App() {
-  const ListLoading = withListLoading(List);
-  const [appState, setAppState] = useState({
-    loading: false,
-    repos: null,
-  });
+ // src/App.js
 
-  useEffect(() => {
-    setAppState({ loading: true });
-    const apiUrl = `https://api.github.com/users/januprasad/repos`;
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((repos) => {
-        setAppState({ loading: false, repos: repos });
-      });
-  }, [setAppState]);
-  return (
-    <div className='App'>
-      <div className='container'>
-        <h1>My Repositories</h1>
-      </div>
-      <div className='repo-container'>
-        <ListLoading isLoading={appState.loading} repos={appState.repos} />
-      </div>
-      <footer>
-        <div className='footer'>
-          Built{' '}
-          <span role='img' aria-label='love'>
-            💚
-          </span>{' '}
-          with by J.K
-        </div>
-      </footer>
-    </div>
-  );
-}
-export default App;
+    import React, { Component } from 'react';
+    import Bank from './components/bank'
+   
+    class App extends Component {
+
+      render() {
+        return (
+            <Bank bank={this.state.bank} />
+        )
+    }
+
+    state = {
+        bank: ""
+    };
+
+
+componentDidMount() {
+        // var api = "http://jsonplaceholder.typicode.com/users"
+        var api = "/banks/airtable/random"
+        fetch(api)
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({ bank: data })
+
+            })
+            .catch(console.log)
+    }
+
+  }
+export default App
